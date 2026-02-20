@@ -51,7 +51,7 @@ Calibration saved to /home/jasper/.cache/huggingface/lerobot/calibration/robots/
 
 
 ====================================================================
-
+Teleoperate:
 lerobot-teleoperate \
     --robot.type=so101_follower \
     --robot.port=/dev/ttyACM1 \
@@ -78,8 +78,8 @@ lerobot-record \
     --dataset.num_episodes=10 \
     --dataset.single_task="Pick up and move the cup to the marker" \
     --dataset.push_to_hub=false \
-    --dataset.episode_time_s=30 \
-    --dataset.reset_time_s=5
+    --dataset.episode_time_s=60 \
+    --dataset.reset_time_s=30
 
 
 Resume:
@@ -96,49 +96,34 @@ lerobot-record \
     --dataset.num_episodes=8 \
     --dataset.single_task="Pick up and move the cup to the marker" \
     --dataset.push_to_hub=false \
-    --dataset.episode_time_s=30 \
-    --dataset.reset_time_s=5 \
+    --dataset.episode_time_s=60 \
+    --dataset.reset_time_s=30 \
     --resume=true
 
 
 ~/.cache/huggingface/lerobot/{repo-id}
 
 
-Some tasks ideas:
-- Pick up all pens and put them in the cup
-- Pick up and move the cup to the marker
-- Stack the cubes
+Tasks:
+- Grab pens and place into pen holder
+- Grab markers and place into pen holder
+- Grab keys and place into pen holder
 
 
-====================================================================
 
 
-lerobot-train \
-  --dataset.repo_id=clean_table \
-  --policy.type=act \
-  --output_dir=outputs/train/act_clean_test \
-  --job_name=act_clean_test \
-  --policy.device=cuda \
-  --policy.repo_id=rtx6000/my_groot_policy \
-  --policy.push_to_hub=false
+============================================
 
-lerobot-train \
-  --output_dir=outputs/train/act_clean_test \
-  --save_checkpoint=true \
-  --batch_size=8 \
-  --steps=100000 \
-  --save_freq=20000 \
-  --log_freq=200 \
-  --policy.push_to_hub=false \
-  --policy.device=cuda \
-  --policy.type=groot \
-  --policy.repo_id=rtx6000/my_groot_policy \
-  --policy.tune_diffusion_model=false \
-  --dataset.repo_id=clean_table \
-  --wandb.enable=false \
-  --job_name=groot_clean_test
+*p1: Task name
+*p2: Episode time in seconds
+*p3: Reset time in seconds
+*p4: Number of episodes
+*p5: Whether to resume from the last episode (optional, default: false)
 
+Default Record: ./run.sh
 
-====================================================================
+Custom Task/Time: ./run.sh "Grab pens and place into pen holder" 60 30
 
+Teleoperate only: ./run.sh "" "" "" "" teleop
 
+Resume: ./run.sh "Open the drawer" 60 30 10 resume
