@@ -122,8 +122,8 @@ Tasks:
 
 Default Record: ./run.sh
 
-Custom Task/Time: ./run.sh "Grab pens and place into pen holder" 60 30
-
 Teleoperate only: ./run.sh "" "" "" "" teleop
 
-Resume: ./run.sh "Open the drawer" 60 30 10 resume
+Custom Task/Time: ./run.sh "Grab pens and place into pen holder" 45 15 10
+
+Resume: ./run.sh "Grab pens and place into pen holder" 45 15 10 resume
